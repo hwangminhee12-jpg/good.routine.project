@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>마이랩 솔루션 | Good Routine Project</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;500;700;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #080808;
+  --white: #f5f5f0;
+  --purple: #7B5CF0;
+  --purple-light: #B69FFF;
+  --purple-dark: #1A0A2E;
+  --gray: #888;
+  --gray-light: #1a1a1a;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--black); color: var(--white); font-family: 'Noto Sans KR', sans-serif; overflow-x: hidden; }
+
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent); }
+.nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: 0.15em; color: var(--purple-light); text-decoration: none; }
+.nav-back { font-size: 12px; color: rgba(245,245,240,0.5); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; }
+.nav-back:hover { color: var(--purple-light); }
+
+.hero { position: relative; width: 100%; min-height: 100svh; display: flex; align-items: flex-end; overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 20%, rgba(123,92,240,0.3) 0%, transparent 55%), radial-gradient(ellipse at 10% 70%, rgba(123,92,240,0.12) 0%, transparent 50%), radial-gradient(ellipse at 50% 100%, rgba(26,10,46,0.8) 0%, transparent 60%), #080808; }
+.hero-dna { position: absolute; right: -40px; top: 50%; transform: translateY(-50%); width: 280px; height: 500px; opacity: 0.12; animation: dnaFloat 6s ease-in-out infinite; }
+@keyframes dnaFloat { 0%, 100% { transform: translateY(-50%) rotate(0deg); } 50% { transform: translateY(-53%) rotate(3deg); } }
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,8,8,1) 0%, rgba(8,8,8,0.4) 55%, rgba(8,8,8,0.1) 100%); }
+.hero-content { position: relative; z-index: 2; padding: 0 24px 72px; width: 100%; }
+.hero-tag { font-size: clamp(22px, 6vw, 32px); letter-spacing: 0.15em; color: var(--purple-light); text-transform: uppercase; font-family: 'Bebas Neue', sans-serif; margin-bottom: 20px; opacity: 0; animation: fadeUp 0.8s ease 0.2s forwards; }
+.hero-title { font-weight: 900; font-size: clamp(32px, 8.5vw, 60px); line-height: 1.12; letter-spacing: -0.03em; margin-bottom: 20px; opacity: 0; animation: fadeUp 0.8s ease 0.4s forwards; }
+.hero-title em { font-style: normal; color: var(--purple-light); }
+.hero-sub { font-size: clamp(14px, 3.5vw, 18px); font-weight: 300; color: rgba(245,245,240,0.65); line-height: 1.85; margin-bottom: 36px; opacity: 0; animation: fadeUp 0.8s ease 0.6s forwards; }
+.hero-cta { display: inline-flex; align-items: center; gap: 8px; background: var(--purple); color: var(--white); padding: 16px 32px; border-radius: 100px; font-size: 14px; font-weight: 700; text-decoration: none; transition: all 0.3s; letter-spacing: 0.02em; box-shadow: 0 8px 32px rgba(123,92,240,0.45); opacity: 0; animation: fadeUp 0.8s ease 0.8s forwards; }
+.hero-cta:hover { background: var(--purple-light); color: var(--black); transform: translateY(-2px); }
+.hero-scroll { position: absolute; bottom: 24px; right: 24px; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 0; animation: fadeIn 1s ease 1.2s forwards; }
+.hero-scroll span { font-size: 9px; letter-spacing: 0.2em; color: var(--gray); writing-mode: vertical-rl; }
+.scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--purple), transparent); animation: scrollAnim 2s ease infinite; }
+
+.sec { padding: 80px 24px; border-top: 1px solid #111; }
+.sec-label { font-size: clamp(22px, 5.5vw, 36px); font-weight: 900; color: var(--white); letter-spacing: -0.01em; margin-bottom: 12px; display: block; line-height: 1.2; }
+.sec-title { font-weight: 900; font-size: clamp(26px, 6vw, 44px); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 16px; }
+.sec-title em { font-style: normal; color: var(--purple-light); }
+
+.prob-card { margin-top: 40px; background: #0d0d0d; border: 1px solid #1f1f1f; border-radius: 16px; padding: 28px 24px; }
+.prob-label { font-size: 10px; letter-spacing: 0.2em; color: var(--purple); text-transform: uppercase; margin-bottom: 14px; }
+.prob-text { font-size: 15px; font-weight: 300; color: rgba(245,245,240,0.75); line-height: 1.9; }
+.prob-text strong { color: var(--white); font-weight: 700; }
+.vs-wrap { margin-top: 32px; display: flex; flex-direction: column; gap: 12px; }
+.vs-card { border-radius: 14px; padding: 22px 20px; }
+.vs-card.bad { background: rgba(255,60,60,0.05); border: 1px solid rgba(255,60,60,0.15); }
+.vs-card.good { background: rgba(123,92,240,0.08); border: 1px solid rgba(123,92,240,0.3); }
+.vs-tag { font-size: 10px; letter-spacing: 0.18em; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; }
+.vs-card.bad .vs-tag { color: rgba(255,100,100,0.8); }
+.vs-card.good .vs-tag { color: var(--purple-light); }
+.vs-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.vs-desc { font-size: 13px; font-weight: 300; color: rgba(245,245,240,0.6); line-height: 1.75; }
+
+.what-stat { margin-top: 40px; text-align: center; }
+.what-stat-num { font-family: 'Bebas Neue', sans-serif; font-size: clamp(64px, 16vw, 108px); color: var(--purple-light); line-height: 1; }
+.what-stat-label { font-size: 13px; color: rgba(245,245,240,0.45); margin-top: 8px; line-height: 1.7; }
+.what-desc { margin-top: 32px; font-size: 15px; font-weight: 300; color: rgba(245,245,240,0.65); line-height: 1.9; }
+.what-desc strong { color: var(--white); font-weight: 700; }
+.pmas-box { margin-top: 28px; background: rgba(123,92,240,0.08); border: 1px solid rgba(123,92,240,0.3); border-radius: 16px; padding: 24px 20px; }
+.pmas-title { font-size: 12px; letter-spacing: 0.15em; color: var(--purple-light); text-transform: uppercase; font-family: 'Bebas Neue', sans-serif; margin-bottom: 10px; }
+.pmas-desc { font-size: 14px; font-weight: 300; color: rgba(245,245,240,0.75); line-height: 1.85; }
+.pmas-desc strong { color: var(--white); font-weight: 700; }
+.pmas-steps { margin-top: 20px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.pmas-step { background: rgba(123,92,240,0.15); border: 1px solid rgba(123,92,240,0.3); border-radius: 8px; padding: 8px 12px; font-size: 12px; font-weight: 500; color: var(--purple-light); white-space: nowrap; }
+.pmas-arrow { color: rgba(123,92,240,0.5); font-size: 14px; }
+
+.process-steps { margin-top: 40px; }
+.process-step { display: flex; align-items: flex-start; gap: 20px; padding: 24px 0; border-bottom: 1px solid #111; }
+.process-step:last-child { border-bottom: none; }
+.process-num-wrap { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; }
+.process-num { width: 44px; height: 44px; border-radius: 50%; background: rgba(123,92,240,0.15); border: 1px solid rgba(123,92,240,0.4); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: var(--purple-light); flex-shrink: 0; }
+.process-line { width: 1px; flex: 1; min-height: 32px; background: linear-gradient(to bottom, rgba(123,92,240,0.3), transparent); margin-top: 8px; }
+.process-step:last-child .process-line { display: none; }
+.process-content { padding-top: 10px; }
+.process-step-tag { font-size: 10px; letter-spacing: 0.18em; color: var(--purple); text-transform: uppercase; margin-bottom: 6px; }
+.process-step-title { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+.process-step-desc { font-size: 13px; font-weight: 300; color: rgba(245,245,240,0.55); line-height: 1.75; }
+
+.report-intro { margin-top: 28px; font-size: 15px; font-weight: 300; color: rgba(245,245,240,0.65); line-height: 1.9; }
+.report-intro strong { color: var(--white); font-weight: 700; }
+.report-chapters { margin-top: 32px; display: flex; flex-direction: column; gap: 16px; }
+.report-chapter { background: #0d0d0d; border: 1px solid #1f1f1f; border-radius: 16px; overflow: hidden; transition: border-color 0.3s; }
+.report-chapter:hover { border-color: rgba(123,92,240,0.4); }
+.chapter-header { padding: 20px 20px 16px; display: flex; align-items: center; gap: 14px; border-bottom: 1px solid #1a1a1a; }
+.chapter-num { font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 0.15em; color: var(--purple-light); flex-shrink: 0; }
+.chapter-title { font-size: 15px; font-weight: 700; }
+.chapter-items { padding: 16px 20px 20px; display: flex; flex-direction: column; gap: 10px; }
+.chapter-item { display: flex; align-items: flex-start; gap: 10px; }
+.chapter-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--purple); flex-shrink: 0; margin-top: 7px; }
+.chapter-item-text { font-size: 13px; font-weight: 300; color: rgba(245,245,240,0.65); line-height: 1.75; }
+.chapter-item-text strong { color: var(--white); font-weight: 500; }
+.chapter-badge { display: inline-flex; align-items: center; font-size: 10px; letter-spacing: 0.1em; color: var(--purple-light); background: rgba(123,92,240,0.1); border: 1px solid rgba(123,92,240,0.25); border-radius: 4px; padding: 2px 7px; margin-left: 6px; vertical-align: middle; }
+
+.for-grid { margin-top: 40px; display: flex; flex-direction: column; gap: 10px; }
+.for-item { background: rgba(123,92,240,0.06); border: 1px solid rgba(123,92,240,0.18); border-radius: 12px; padding: 18px 20px; display: flex; align-items: center; gap: 14px; }
+.for-check { color: var(--purple-light); font-size: 18px; flex-shrink: 0; }
+.for-text { font-size: 14px; font-weight: 400; color: rgba(245,245,240,0.8); line-height: 1.6; }
+
+.cta-section { background: var(--purple-dark); border-top: 1px solid rgba(123,92,240,0.2); padding: 80px 24px; text-align: center; }
+.cta-tag { font-family: 'Bebas Neue', sans-serif; font-size: clamp(20px, 5vw, 28px); letter-spacing: 0.15em; color: var(--purple-light); margin-bottom: 20px; display: block; }
+.cta-title { font-weight: 900; font-size: clamp(24px, 6vw, 42px); line-height: 1.25; letter-spacing: -0.02em; margin-bottom: 20px; }
+.cta-title em { font-style: normal; color: var(--purple-light); }
+.cta-sub { font-size: 14px; font-weight: 300; color: rgba(245,245,240,0.55); line-height: 1.9; margin-bottom: 8px; }
+.cta-note { font-size: 12px; color: rgba(245,245,240,0.3); line-height: 1.7; margin-bottom: 40px; }
+.cta-btn { display: inline-flex; align-items: center; gap: 10px; background: #FEE500; color: #000; padding: 18px 40px; border-radius: 100px; font-size: 15px; font-weight: 700; text-decoration: none; transition: all 0.3s; box-shadow: 0 8px 32px rgba(254,229,0,0.25); }
+.cta-btn:hover { background: #fff; transform: translateY(-2px); }
+.cta-btn-icon { font-size: 18px; }
+.cta-divider { margin: 24px auto; width: 1px; height: 32px; background: rgba(245,245,240,0.1); }
+.cta-ghost { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: rgba(245,245,240,0.5); padding: 12px 24px; border-radius: 100px; border: 1px solid rgba(245,245,240,0.15); font-size: 13px; text-decoration: none; transition: all 0.3s; }
+.cta-ghost:hover { border-color: var(--purple-light); color: var(--purple-light); }
+
+footer { background: #050505; border-top: 1px solid #111; padding: 40px 24px; text-align: center; }
+.footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 0.2em; color: var(--purple-light); display: block; margin-bottom: 12px; }
+.footer-copy { font-size: 11px; color: #333; line-height: 1.6; }
+
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes scrollAnim { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+@media (min-width: 768px) {
+  .sec { padding: 100px 60px; }
+  .hero-content { padding: 0 60px 80px; max-width: 700px; }
+  .cta-section { padding: 100px 60px; }
+  .vs-wrap { flex-direction: row; gap: 16px; }
+  .vs-card { flex: 1; }
+  .for-grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .report-chapters { display: grid; grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">GOOD ROUTINE PROJECT</a>
+  <a href="index.html" class="nav-back">← 홈으로</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <svg class="hero-dna" viewBox="0 0 200 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M60 0 Q140 50 60 100 Q-20 150 60 200 Q140 250 60 300 Q-20 350 60 400 Q140 450 60 500" stroke="#B69FFF" stroke-width="2" fill="none"/>
+    <path d="M140 0 Q60 50 140 100 Q220 150 140 200 Q60 250 140 300 Q220 350 140 400 Q60 450 140 500" stroke="#B69FFF" stroke-width="2" fill="none"/>
+    <line x1="60" y1="25" x2="140" y2="25" stroke="#7B5CF0" stroke-width="1.5" opacity="0.6"/>
+    <line x1="60" y1="100" x2="140" y2="100" stroke="#7B5CF0" stroke-width="1.5" opacity="0.6"/>
+    <line x1="60" y1="200" x2="140" y2="200" stroke="#7B5CF0" stroke-width="1.5" opacity="0.6"/>
+    <line x1="60" y1="300" x2="140" y2="300" stroke="#7B5CF0" stroke-width="1.5" opacity="0.6"/>
+    <line x1="60" y1="400" x2="140" y2="400" stroke="#7B5CF0" stroke-width="1.5" opacity="0.6"/>
+    <circle cx="60" cy="25" r="3" fill="#B69FFF" opacity="0.7"/>
+    <circle cx="140" cy="25" r="3" fill="#B69FFF" opacity="0.7"/>
+    <circle cx="60" cy="100" r="3" fill="#B69FFF" opacity="0.7"/>
+    <circle cx="140" cy="100" r="3" fill="#B69FFF" opacity="0.7"/>
+    <circle cx="60" cy="200" r="3" fill="#B69FFF" opacity="0.7"/>
+    <circle cx="140" cy="200" r="3" fill="#B69FFF" opacity="0.7"/>
+    <circle cx="60" cy="300" r="3" fill="#B69FFF" opacity="0.7"/>
+    <circle cx="140" cy="300" r="3" fill="#B69FFF" opacity="0.7"/>
+  </svg>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-tag">My Lab Solution</p>
+    <h1 class="hero-title">
+      건강을 책임지는<br>
+      컨트롤 타워, 장을<br>
+      <em>관리하는 현명한 방법!</em>
+    </h1>
+    <p class="hero-sub">
+      이제 나의 장 속 미생물을 분석하고<br>
+      맞춤형 유산균을 통해 장 건강을 관리하세요.<br><br>
+      내 장과 똑같은 환경에서 나에게 가장 잘 맞는<br>
+      유산균을 먼저 시뮬레이팅한 최적의 유산균을 추천해준다면?
+    </p>
+    <a href="http://pf.kakao.com/_bxoxoIn/chat" target="_blank" class="hero-cta">마이랩 솔루션 문의하기 →</a>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>SCROLL</span>
+  </div>
+</section>
+
+<!-- ① 왜 맞춤형인가 -->
+<section class="sec reveal" style="background:#050505;">
+  <h2 class="sec-title">유산균, 아무거나<br><em>먹고 있진 않나요?</em></h2>
+  <div class="prob-card">
+    <div class="prob-label">문제</div>
+    <p class="prob-text">
+      시중의 유산균 제품은 수백 종. 하지만 내 장에 어떤 균이 부족한지,
+      어떤 균이 과잉인지 <strong>모른 채 먹는 유산균은 확률 게임일 뿐입니다.</strong><br><br>
+      내 장 속 39조 마리의 미생물은 사람마다 다릅니다.
+      같은 식단, 같은 생활 습관을 가져도 장내 생태계는 저마다의 <strong>고유한 지문</strong>을 갖습니다.
+    </p>
+  </div>
+  <div class="vs-wrap">
+    <div class="vs-card bad">
+      <div class="vs-tag">❌ 일반적인 접근</div>
+      <div class="vs-title">광고 보고 고르는 유산균</div>
+      <div class="vs-desc">성분, 균 수, 브랜드만 보고 선택.<br>내 장에 실제로 이 유산균이 효과적일지는 알 수 없음.</div>
+    </div>
+    <div class="vs-card good">
+      <div class="vs-tag">✓ 마이랩 접근</div>
+      <div class="vs-title">내 장 데이터 기반 유산균</div>
+      <div class="vs-desc">내 장과 똑같은 환경을 복제해 이미 실험을 끝낸,<br>나에게 최적의 유산균 조합만 정확하게 추천.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ② 마이랩이란 -->
+<section class="sec reveal" style="background:var(--black);">
+  <span class="sec-label">왜 맞춤형 관리가 필요할까요?</span>
+  <h2 class="sec-title">유산균 유목민을<br><em>끝내는 방법</em></h2>
+  <div class="what-stat">
+    <div class="what-stat-num">39<span style="font-size:0.45em;line-height:1;">조</span></div>
+    <div class="what-stat-label">내 몸 안에 존재하는 미생물의 수.<br>이 생태계의 균형이 면역·대사·기분을 결정합니다.</div>
+  </div>
+  <p class="what-desc" style="margin-top:32px;">
+    매번 효과없는 유산균을 바꿔 먹고 있다면,<br>
+    이제 유산균 유목민을 끝내고 맞춤형 솔루션을 선택하세요.<br><br>
+    <strong>개인의 장 속 미생물은 지문처럼 다 다릅니다.</strong><br>
+    아무리 좋은 유산균이라 해도 나에게는 효과 없는 유산균이 되는 이유가 바로 여기에 있습니다.<br><br>
+    나의 장 속 미생물 상태를 분석하여, 내 장과 똑같은 6개의 장 환경을 복제하는 PMAS 특허 기술을 통해
+    <strong>나에게 어떤 조합이 가장 잘 맞을지 미리 시뮬레이팅</strong> 할 수 있다면?<br><br>
+    우리가 직접 유산균을 바꿔가며 시행착오를 겪을 일이 사라집니다.<br><br>
+    마이랩 솔루션은 내 장 속 유익균·유해균의 구성과 비율, 다양성 지수를 분석한
+    <strong>맞춤형 리포트를 제공함과 동시에</strong>,
+    내 장 상태에 가장 효과적인 <strong>최적의 유산균을 추천</strong>합니다.
+  </p>
+  <div class="pmas-box">
+    <div class="pmas-title">마이랩 솔루션 만의 PMAS 특허 기술</div>
+    <p class="pmas-desc">
+      내 분변 샘플로 <strong>장 환경을 그대로 복제</strong>한 뒤, 6가지 프로바이오틱스를 각각 적용해
+      미생물과 대사체를 동시에 분석합니다. 이 중 내 장에서 가장 높은 효과를 나타낸
+      <strong>유산균 조합만 추천</strong>받는 국내 유일의 AI 기반 기술입니다.<br>
+      <span style="font-size:11px;color:rgba(245,245,240,0.35);margin-top:6px;display:block;">특허등록번호 10-2124474, 10-2227382, US.11237172. B2</span>
+    </p>
+    <div class="pmas-steps">
+      <span class="pmas-step">분변 채취</span>
+      <span class="pmas-arrow">→</span>
+      <span class="pmas-step">6개 복제 장 구축</span>
+      <span class="pmas-arrow">→</span>
+      <span class="pmas-step">6종 프로바이오틱스 적용</span>
+      <span class="pmas-arrow">→</span>
+      <span class="pmas-step">최적 유산균 선별</span>
+    </div>
+  </div>
+</section>
+
+<!-- ③ 검사 프로세스 -->
+<section class="sec reveal" style="background:#050505;">
+  <span class="sec-label">어떻게 진행되나요?</span>
+  <h2 class="sec-title">키트 수령부터<br><em>맞춤 추천까지</em></h2>
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="process-num-wrap">
+        <div class="process-num">01</div>
+        <div class="process-line"></div>
+      </div>
+      <div class="process-content">
+        <div class="process-step-tag">집에서 채취</div>
+        <div class="process-step-title">간단한 샘플 채취 후 발송</div>
+        <div class="process-step-desc">키트에 동봉된 가이드에 따라 집에서 간편하게 샘플을 채취하고, 동봉된 봉투로 발송합니다. 5분이면 충분합니다.</div>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="process-num-wrap">
+        <div class="process-num">02</div>
+        <div class="process-line"></div>
+      </div>
+      <div class="process-content">
+        <div class="process-step-tag">분석 (약 4주)</div>
+        <div class="process-step-title">PMAS 기술로 내 장 환경 복제 & 분석</div>
+        <div class="process-step-desc">내 분변 샘플로 장 환경을 복제한 뒤 6종의 프로바이오틱스를 각각 적용해 미생물·대사체를 동시에 정밀 분석합니다.</div>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="process-num-wrap">
+        <div class="process-num">03</div>
+        <div class="process-line"></div>
+      </div>
+      <div class="process-content">
+        <div class="process-step-tag">리포트 & 추천</div>
+        <div class="process-step-title">맞춤형 리포트 + 최적 유산균 추천</div>
+        <div class="process-step-desc">내 장 상태를 정확한 수치로 확인하고, 이미 내 장에서 효과가 검증된 최적의 유산균 조합을 추천받습니다.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ④ 레포트 항목 -->
+<section class="sec reveal" style="background:var(--black);">
+  <span class="sec-label">마이랩 솔루션을 통해 알 수 있는 것</span>
+  <h2 class="sec-title">개인 맞춤<br><em>레포트 항목</em></h2>
+  <p class="report-intro">
+    내 장 속 미생물 데이터를 수치로 확인하고,
+    <strong>실제로 내 장에서 가장 효과적인 유산균</strong>까지 한 번에 추천받습니다.
+  </p>
+  <div class="report-chapters">
+
+    <div class="report-chapter">
+      <div class="chapter-header">
+        <span class="chapter-num">CHAPTER 1</span>
+        <span class="chapter-title">종합 결과 & 맞춤 솔루션</span>
+      </div>
+      <div class="chapter-items">
+        <div class="chapter-item"><div class="chapter-dot"></div><div class="chapter-item-text"><strong>마이크로바이옴 종합 결과</strong> (주의/보통/양호)</div></div>
+        <div class="chapter-item"><div class="chapter-dot"></div><div class="chapter-item-text"><strong>나의 PMAS 유형</strong> — 최적 유산균 균주 조합 추천 <span class="chapter-badge">핵심</span></div></div>
+        <div class="chapter-item"><div class="chapter-dot"></div><div class="chapter-item-text"><strong>나의 권장 식단</strong> (DASH·MIND·저포드맵 중 1종)</div></div>
+        <div class="chapter-item"><div class="chapter-dot"></div><div class="chapter-item-text"><strong>분석 결과 히스토리</strong> — 이전 검사 대비 변화 비교</div></div>
+      </div>
+    </div>
+
+    <div class="report-chapter">
+      <div class="chapter-header">
+        <span class="chapter-num">CHAPTER 2</span>
+        <span class="chapter-title">포스트바이오틱스 분석</span>
+      </div>
+      <div class="chapter-items">
+        <div class="chapter-item"><div class="chapter-dot"></div><div class="chapter-item-text"><strong>포스트바이오틱스 균형 지수</strong> <span class="chapter-badge">핵심</span></div></div>
+        <div class="chapter-item"><div class="chapter-dot"></div><div class="chapter-item-text"><strong>뷰티르산 수치</strong> — 장벽 보호·면역 조절 핵심 지표 (전체 표본 상위 % 확인)</div></div>
+      </div>
+    </div>
+
+    <div class="report-chapter">
+      <div class="chapter-header">
+        <span class="chapter-num">CHAPTER 3</span>
+        <span class="chapter-title">마이크로바이옴 분석 결과</span>
+      </div>
+      <div class="chapter-items">
+        <div class="chapter-item"><div class="chapter-dot"></div><div class="chapter-item-text"><strong>마이크로바이옴 다양성</strong> (전체 표본 상위 % 확인)</div></div>
+        <div class="chapter-item"><div class="chapter-dot"></div><div class="chapter-item-text"><strong>장내 유익균·유해균</strong> — 락토바실러스·비피도박테리움 비중, 유해균 5종 유무</div></div>
+        <div class="chapter-item"><div class="chapter-dot"></div><div class="chapter-item-text"><strong>건강 관련 미생물 분포</strong> — 대사·면역·신경·소화기·피부·근육 건강별</div></div>
+        <div class="chapter-item"><div class="chapter-dot"></div><div class="chapter-item-text"><strong>나의 대표 장내 미생물 TOP 5</strong></div></div>
+      </div>
+    </div>
+
+    <div class="report-chapter">
+      <div class="chapter-header">
+        <span class="chapter-num">CHAPTER 4</span>
+        <span class="chapter-title">맞춤 라이프스타일 솔루션</span>
+      </div>
+      <div class="chapter-items">
+        <div class="chapter-item"><div class="chapter-dot"></div><div class="chapter-item-text"><strong>맞춤 식습관 솔루션</strong> — 채소·과일·발효음식·수분 섭취 가이드</div></div>
+        <div class="chapter-item"><div class="chapter-dot"></div><div class="chapter-item-text"><strong>맞춤 생활습관 솔루션</strong> — 수면·운동·스트레스 항목별 피드백</div></div>
+        <div class="chapter-item"><div class="chapter-dot"></div><div class="chapter-item-text"><strong>나의 배변 건강</strong> — 대변 형태·빈도 분석 및 전체 표본 비교</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ⑤ 이런 분께 -->
+<section class="sec reveal" style="background:#050505;">
+  <span class="sec-label">이런 분께 추천합니다</span>
+  <h2 class="sec-title">혹시 이런<br><em>경험 있으신가요?</em></h2>
+  <div class="for-grid">
+    <div class="for-item">
+      <div class="for-check">✓</div>
+      <div class="for-text">유산균을 꾸준히 먹어도 <strong>효과가 없다</strong>고 느끼는 분</div>
+    </div>
+    <div class="for-item">
+      <div class="for-check">✓</div>
+      <div class="for-text">식단 관리를 해도 <strong>소화, 컨디션이 제자리</strong>인 분</div>
+    </div>
+    <div class="for-item">
+      <div class="for-check">✓</div>
+      <div class="for-text">어떤 유산균을 먹어야 할지 <strong>선택이 어려운</strong> 분</div>
+    </div>
+    <div class="for-item">
+      <div class="for-check">✓</div>
+      <div class="for-text">6일 장 대사 리셋 전후, <strong>내 장 변화를 수치로</strong> 확인하고 싶은 분</div>
+    </div>
+    <div class="for-item">
+      <div class="for-check">✓</div>
+      <div class="for-text">막연하게 먹던 영양제, 이제 <strong>데이터 기반으로</strong> 바꾸고 싶은 분</div>
+    </div>
+    <div class="for-item">
+      <div class="for-check">✓</div>
+      <div class="for-text"><strong>근육 성장·체지방·수면·면역</strong>, 내 장이 발목을 잡는지 확인하고 싶은 분</div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑥ CTA -->
+<section class="cta-section reveal">
+  <span class="cta-tag">My Lab Solution</span>
+  <h2 class="cta-title">내 몸속 컨트롤 타워인 장 건강<br><em>이제 마이랩으로 정확하게 관리하세요</em></h2>
+  <p class="cta-sub">마이랩 솔루션 구매는 아래 카카오 채널 채팅으로 문의해 주세요.</p>
+  <p class="cta-note">검사 키트 가격 · 배송 방법 · 분석 기간 등<br>궁금한 점을 편하게 물어보세요 :)</p>
+  <a href="http://pf.kakao.com/_bxoxoIn/chat" target="_blank" class="cta-btn">
+    <span class="cta-btn-icon">💬</span>
+    카카오 채널로 문의하기
+  </a>
+  <div style="margin-top:56px;">
+    <p style="font-size:clamp(16px,4vw,22px);font-weight:900;line-height:1.6;margin-bottom:12px;">
+      유전자는 바꿀 수 없지만,<br>
+      <span style="color:var(--purple-light);">내 장 속 미생물은<br>오늘부터 바꿀 수 있습니다.</span>
+    </p>
+    <p style="font-size:12px;color:rgba(245,245,240,0.25);line-height:1.8;margin-top:12px;">
+      본 검사는 질병의 진단 또는 치료를 목적으로 하지 않습니다.<br>건강 상태에 대한 정확한 진단이 필요한 경우 전문의와 상의하시기 바랍니다.
+    </p>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">GOOD ROUTINE PROJECT</span>
+  <p class="footer-copy">본 콘텐츠는 질병의 예방 또는 진단을 목적으로 제공되는 서비스가 아닙니다.<br>건강 상태에 대한 정확한 진단이 필요한 경우 전문의와 상의하시기 바랍니다.</p>
+</footer>
+
+<script>
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
